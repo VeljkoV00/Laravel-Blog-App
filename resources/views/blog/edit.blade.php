@@ -4,11 +4,7 @@
         <section id="contact-us">
             <h1 style="padding-top: 50px">Edit a post</h1>
 
-            @if(session()->has('status'))
-            <div class="alert alert-success text-center">
-                 {{ session()->get('status') }}
-            </div>
-        @endif
+          @include('includes.flash-message')
 
             <div class="contact-form">
                 <form action="{{ route('blog.update', $post) }}" method="POST" enctype="multipart/form-data">

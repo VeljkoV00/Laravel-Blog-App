@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,18 +20,26 @@ class BlogController extends Controller
             $posts = Post::where('title', 'like', '%' . $request->search . '%')
             ->orWhere('body', 'like', '%' .  $request->search . '%')->latest()->paginate(4);
         }
+        elseif($request->category){
+
+            $posts = Category::where('name', $request->category)->firstOrFail()->post()->paginate(4)->withQueryString();
+           
+        }
         else{
 
             $posts = Post::latest()->paginate(4);
         }
 
+        $categories = Category::all();
+
       
-        return view('blog.index', compact('posts'));
+        return view('blog.index', compact('posts', 'categories'));
     }
 
     public function create (){
 
-        return view('blog.create');
+        $categories = Category::all();
+        return view('blog.create', compact('categories'));
     }
 
     public function store(Request $request){
@@ -38,13 +47,20 @@ class BlogController extends Controller
       $request->validate([
           'title' => 'required',
           'body' => 'required',
-          'image' => 'required | image' 
+          'image' => 'required | image',
+          'category_id' => 'required'
 
 
       ]);
 
       $title = $request->input('title');
-      $postId = Post::latest()->take(1)->first()->id + 1;
+      $category_id = $request->input('category_id');
+     if(Post::latest()->first() !== null){
+         $postId = Post::latest()->first()->id + 1;
+     }
+     else{
+         $postId =1;
+     }
       $slug = Str::slug($title, '-') . '-' . $postId;
       $body = $request->input('body');
       $user_id = Auth::user()->id;
@@ -53,6 +69,7 @@ class BlogController extends Controller
 
        $post = new Post();
        $post->title = $title;
+       $post->category_id = $category_id;
        $post->slug = $slug;
        $post->body = $body;
        $post->user_id = $user_id;
@@ -63,8 +80,11 @@ class BlogController extends Controller
     }
 
     public function show(Post $post){
+
+        $category = $post->category;
+        $relatedPosts = $category->post()->where('id', '!=', $post->id )->latest()->take(3)->get();
    
-        return view('blog.single-blog', compact('post'));
+        return view('blog.single-blog', compact('post', 'relatedPosts'));
     }
 
     public function edit(Post $post){

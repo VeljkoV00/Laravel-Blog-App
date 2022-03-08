@@ -4,13 +4,14 @@
         <section id="contact-us">
             <h1 style="padding-top: 50px">Create new category</h1>
 
-     @include('includes.flash-message')
+            @include('includes.flash-message')
 
             <div class="contact-form">
-                <form action="{{ route('categories.store') }}" method="POST" >
+                <form action="{{ route('categories.update', $category) }}" method="POST" >
+                    @method('put')
                     @csrf
                     <label for="">Name</label>
-                    <input type="text" name="name" value="{{ old('name') }}">
+                    <input type="text" name="name" value="{{ $category->name }}">
                     @error('name')
                         <p style="margin-bottom: 15px; color:red">{{ $message }}</p>
                     @enderror

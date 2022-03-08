@@ -2,11 +2,7 @@
 @section('main')
 <main class="container">
   <h2 class="header-title">All Blog Posts</h2>
-  @if(session()->has('status'))
-            <div class="alert alert-success text-center">
-                 {{ session()->get('status') }}
-            </div>
-        @endif
+@include('includes.flash-message')
   <div class="searchbar">
     <form action="">
       <input type="text" placeholder="Search..." name="search" />
@@ -19,10 +15,11 @@
   </div>
   <div class="categories">
     <ul>
-      <li><a href="">Health</a></li>
-      <li><a href="">Entertainment</a></li>
-      <li><a href="">Sports</a></li>
-      <li><a href="">Nature</a></li>
+      @foreach ($categories as $category)
+      <li><a href="{{ route('blog.index', ['category' => $category->name]) }}">{{ $category->name }}</a></li>
+      @endforeach
+    
+    
     </ul>
   </div>
   <section class="cards-blog latest-blog">

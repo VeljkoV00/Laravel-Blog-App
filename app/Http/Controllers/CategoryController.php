@@ -64,9 +64,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -76,9 +77,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+        
+            'name' => 'required',
+  
+        ]);
+
+        $category->update($request->all());
+
+
+        return redirect()->route('categories.index')->with('status', 'Category updated successfuly');
     }
 
     /**
@@ -87,8 +97,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back()->with('status', 'Category deleted successfuly');
+
     }
 }

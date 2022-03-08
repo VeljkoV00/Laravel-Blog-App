@@ -27,8 +27,9 @@ Route::get('/blog/{post}/edit', [BlogController::class, 'edit'])->name('blog.edi
 Route::put('/blog/{post}', [BlogController::class, 'update'])->name('blog.update');
 Route::delete('/blog/{post}', [BlogController::class, 'delete'])->name('blog.delete');
 
-//Conatact Routes
+//Contact Routes
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 //About routes
 Route::get('/about', function(){
 
@@ -38,6 +39,8 @@ Route::get('/about', function(){
 
 //Resource Category Controller
 Route::resource('categories', CategoryController::class);
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

@@ -4,6 +4,7 @@
   <section id="contact-us">
     <h1>Get in Touch!</h1>
 
+    @include('includes.flash-message')
     <!-- contact info -->
     <div class="container">
       <div class="contact-info">
@@ -37,7 +38,9 @@
 
       <!-- Contact Form -->
       <div class="contact-form">
-        <form action="" method="">
+        <form action="{{ route('contact.store') }}" method="POST">
+
+          @csrf
           <!-- Name -->
           <label for="name"><span>Name</span></label>
           <input type="text" id="name" name="name" value="" />
