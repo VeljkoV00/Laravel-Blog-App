@@ -21,7 +21,7 @@
     <p>Related</p>
     <div class="recommended-cards">
       @foreach ($relatedPosts as $relatedPost )
-      <a href="">
+      <a href="{{ route('blog.show', $relatedPost) }}">
         <div class="recommended-card">
           <img src="{{ asset( $relatedPost->imagePath) }}" alt="" loading="lazy" />
           <h4>

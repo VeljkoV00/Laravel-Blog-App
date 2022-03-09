@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('body');
+            $table->longText('body');
             $table->string('imagePath');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');

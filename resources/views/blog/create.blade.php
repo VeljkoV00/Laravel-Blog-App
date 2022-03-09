@@ -24,7 +24,7 @@
 
                     <label for="categories">Category</label>
 
-                    <select name="category_id" id="category_id">
+                    <select class="select" name="category_id" id="category_id">
 
                         <option selected disabled>Select Category</option>
                         @foreach ($categories as $category)
@@ -38,6 +38,7 @@
 
 
 
+                <br>
                     <label for="">Body</label>
                     <textarea name="body" id="body" cols="30" rows="10">{{ old('body') }}</textarea>
                     @error('body')

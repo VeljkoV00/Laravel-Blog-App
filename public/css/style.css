@@ -3,12 +3,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  
+ 
 }
 
 body {
-  color: #999;
+  color: #6e7777;
   background: #101010;
+  
 }
 
 #wrapper {
@@ -302,6 +305,20 @@ footer small {
   margin: 15px 8px;
 }
 
+.select{
+  width: 80%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+
 .categories-list .item div a {
   padding: 6px 20px;
   background-color: #4caf50;
@@ -381,7 +398,7 @@ footer small {
 
 .single-blog-post img {
   height: 50vh;
-  object-fit: cover;
+ object-fit:scale-down;
   width: 100%;
 }
 
